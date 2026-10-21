@@ -4,6 +4,17 @@
 
 ## npm 与源码消费
 
+独立仓库：[mushuanli/llm-ui](https://github.com/mushuanli/llm-ui)。在仓库根目录使用 Node.js 22 和 pnpm 10.20.0：
+
+```bash
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+源码与 TypeScript/Vite 配置均不引用上级工作区。MindOS 将此仓库作为 `libraries/llm-ui` 子模块使用；该目录就是开发工作树，直接在其中提交并推送，再由主仓库更新子模块提交，不维护第二份源码。
+
 发布制品通过 npm 安装，根入口使用 dist JavaScript 和声明：
 
 ```bash
