@@ -9,7 +9,7 @@ const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'))
 assert.deepEqual(Object.keys(manifest.dependencies), ['@itookit/mdxeditor']);
 assert.match(manifest.dependencies['@itookit/mdxeditor'], /^\^?\d+\.\d+\.\d+$/);
 for (const key of ['peerDependencies', 'optionalDependencies']) assert.equal(Object.keys(manifest[key] ?? {}).length, 0);
-assert.deepEqual(Object.keys(manifest.exports).sort(), ['.', './flow', './flow.css', './style.css']);
+assert.deepEqual(Object.keys(manifest.exports).sort(), ['.', './flow', './flow.css', './forms', './forms.css', './style.css']);
 for (const [name, target] of Object.entries(manifest.publishConfig.exports)) {
     for (const path of typeof target === 'string' ? [target] : Object.values(target))
         assert.ok(existsSync(resolve(root, path)), `${name}: missing published artifact ${path}`);

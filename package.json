@@ -9,6 +9,8 @@
     ".": "./src/index.ts",
     "./style.css": "./src/style.css",
     "./flow": "./src/flow.ts",
+    "./forms": "./src/parameter-form.ts",
+    "./forms.css": "./src/forms.css",
     "./flow.css": "./src/flow.css"
   },
   "publishConfig": {
@@ -27,7 +29,13 @@
         "types": "./dist/flow.d.ts",
         "import": "./dist/flow.js"
       },
-      "./flow.css": "./dist/flow.css"
+      "./flow.css": "./dist/flow.css",
+      "./forms": {
+        "types": "./dist/parameter-form.d.ts",
+        "import": "./dist/forms.js",
+        "require": "./dist/forms.cjs"
+      },
+      "./forms.css": "./dist/forms.css"
     }
   },
   "files": [
@@ -39,7 +47,7 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "vite build && vite build --config vite.flow.config.ts && node scripts/check-package.mjs",
+    "build": "vite build && vite build --config vite.flow.config.ts && vite build --config vite.forms.config.ts && node scripts/check-package.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "prepack": "pnpm build"

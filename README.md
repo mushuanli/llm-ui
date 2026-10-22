@@ -52,6 +52,21 @@ await view.destroy();
 
 ## Flow
 
+可独立复用参数表单，不必加载聊天或连接执行服务：
+
+```ts
+import { renderParameterFields, readParameterFields } from '@itookit/llm-ui/forms';
+import '@itookit/llm-ui/forms.css';
+
+const fields = [{ name: 'limit', type: 'number', minimum: 1, default: 10 }] as const;
+container.innerHTML = renderParameterFields(fields, { mode: 'defaults' });
+const defaults = readParameterFields(container, fields, { mode: 'defaults' });
+```
+
+`mode: 'defaults'` 的空值表示继承，布尔值可选择继承/开启/关闭；`mode: 'run'` 使用定义默认值并校验必填、数值边界、整数及 JSON。宿主通过 `labels`/`error` 翻译，通过 `classes`/`optionLabel` 调整展示，通过 `renderField`/`parseField` 替换特殊控件。嵌入其他表单时可用 `namePrefix` 隔离原生控件名称，返回值仍使用原定义字段名。自定义控件保留同索引 `data-parameter` 的原生值控件，事件与释放归宿主。公共表单不读取 Flow 目录、版本、连接、凭据或存储。
+
+默认 Flow 检查器也使用这套字段组件，通过 `parameterForm` 调整通用字段；`mountInspector` 可替换整个面板。MindOS 的智能体默认配置与 Flow 运行参数面板复用同一表单，业务连接校验、图片上传与运行仍由适配层执行。
+
 Flow 是本库的一部分。聊天集成通过 features.flow 控制，默认关闭；只有启用并点击入口后才加载 Flow 代码：
 
 ```ts

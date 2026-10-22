@@ -1,4 +1,5 @@
 import type { JsonValue, OperationContext, OperationLedger, OperationReceipt, MountedToolbar } from './contracts';
+import type { ParameterFormOptions } from './parameter-form';
 
 export interface FlowPort { readonly id: string; readonly label: string }
 export type FlowField = { readonly id: string; readonly label: string; readonly required?: boolean } & (
@@ -72,6 +73,8 @@ export interface FlowOptions {
     readonly actions: FlowActions;
     readonly operations: OperationLedger;
     readonly mountInspector?: (container: HTMLElement, context: FlowInspectorContext) => MountedFlowInspector;
+    /** Customize the default inspector's field controls while retaining node values and run validation. */
+    readonly parameterForm?: Omit<ParameterFormOptions, 'mode' | 'values'>;
     readonly mountToolbar?: (container: HTMLElement, snapshot: FlowSnapshot) => Pick<MountedToolbar, 'destroy'>;
     readonly translate?: (key: string) => string;
     readonly locale?: 'zh-CN' | 'en';

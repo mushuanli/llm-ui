@@ -152,7 +152,7 @@ class FlowController implements FlowView {
         const version = this.inspectorVersion;
         const context = { node, snapshot: this.snapshot, canEdit: this.can('updateNode'),
             commit: (change: FlowNodeChange) => this.commitInspector(node, change, version) };
-        try { this.mounted = this.options.mountInspector?.(this.inspector, context) ?? mountFlowInspector(this.inspector, context, this.t); }
+        try { this.mounted = this.options.mountInspector?.(this.inspector, context) ?? mountFlowInspector(this.inspector, context, this.t, this.options.parameterForm); }
         catch (error) { this.report(error); }
         if (this.can('removeNode')) this.inspector.append(button(this.t('removeNode'), () => {
             const target = { nodeId: node.id, expectedRevision: node.revision };
